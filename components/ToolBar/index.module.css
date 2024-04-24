@@ -4,11 +4,25 @@
   background-color: theme("colors.background1");
 
   .toolItem {
-    @apply mb-5;
+    @apply mb-2;
 
     .toolText {
-      @apply text-sm font-medium;
+      @apply text-base font-medium;
       color: theme("colors.text1");
+    }
+
+    .colorContainer {
+      @apply flex justify-between mt-2;
+
+      .colorBox {
+        @apply size-6 mr-1 rounded cursor-pointer transition duration-300;
+
+        &:hover,
+        &.active {
+          border: 1.5px solid theme("colors.border2");
+          box-shadow: theme("colors.shadow2");
+        }
+      }
     }
 
     .tool {
