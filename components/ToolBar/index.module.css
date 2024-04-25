@@ -15,11 +15,11 @@
       @apply flex justify-between mt-2;
 
       .colorBox {
-        @apply size-6 mr-1 rounded cursor-pointer transition duration-300;
+        @apply size-6 mr-1 rounded-md cursor-pointer transition duration-300;
 
         &:hover,
         &.active {
-          border: 1.5px solid theme("colors.border2");
+          border: 2px solid theme("colors.border2");
           box-shadow: theme("colors.shadow2");
         }
       }

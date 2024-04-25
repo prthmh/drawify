@@ -1,16 +1,28 @@
 "use client";
 
+import cx from "classnames";
 import { MENU_ITEMS, PRESELECTEDCOLORS } from "@/constants/index";
 import styles from "./index.module.css";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { changeBrushSize, changeColor } from "@/redux/feature/toolSlice";
 
 const ToolBar = () => {
   const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem);
+  const { color } = useAppSelector((state) => state.tool[activeMenuItem]);
+  const dispatch = useAppDispatch();
 
   const showColors = activeMenuItem === MENU_ITEMS.PENCIL;
   const showBrushSize =
     activeMenuItem === MENU_ITEMS.PENCIL ||
     activeMenuItem === MENU_ITEMS.ERASER;
+
+  const updateBrushSize = (e) => {
+    dispatch(changeBrushSize({ item: activeMenuItem, size: e.target.value }));
+  };
+
+  const updateColor = (newColor) => {
+    dispatch(changeColor({ item: activeMenuItem, color: newColor }));
+  };
 
   return (
     <div className={styles.toolBarContainer}>
@@ -19,18 +31,25 @@ const ToolBar = () => {
           <h3 className={styles.toolText}>Color Picker</h3>
           <p className=" text-sm text-gray-500 w-[20ch]">Pre selected colors</p>
           <div className={styles.colorContainer}>
-            {Object.entries(PRESELECTEDCOLORS)?.map((color) => (
+            {Object.entries(PRESELECTEDCOLORS)?.map((c) => (
               <div
-                key={color[0]}
-                className={styles.colorBox}
-                style={{ backgroundColor: color[1] }}
+                key={c[0]}
+                className={cx(styles.colorBox, {
+                  [styles.active]: color === c[1],
+                })}
+                style={{ backgroundColor: c[1] }}
+                onClick={() => updateColor(c[1])}
               ></div>
             ))}
           </div>
 
           <p className=" text-sm text-gray-500 w-[20ch]">Color palette</p>
 
-          <input type="color" className={styles.tool} />
+          <input
+            type="color"
+            className={styles.tool}
+            onChange={(e) => updateColor(e.target.value)}
+          />
         </div>
       )}
 
@@ -44,7 +63,9 @@ const ToolBar = () => {
             min={1}
             max={10}
             step={1}
+            defaultValue={3}
             className={styles.tool}
+            onChange={updateBrushSize}
           />
         </div>
       )}

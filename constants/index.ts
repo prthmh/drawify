@@ -3,7 +3,8 @@ enum PRESELECTEDCOLORS {
   RED = "red",
   GREEN = "green",
   BLUE = "dodgerblue",
-  YELLO = "yellow",
+  YELLOW = "yellow",
+  WHITE = "white",
 }
 
 enum MENU_ITEMS {
