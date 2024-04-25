@@ -10,7 +10,10 @@ import cx from "classnames";
 
 import styles from "./index.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { menuClickHandler } from "@/redux/feature/menuSlice";
+import {
+  actionClickHandler,
+  menuClickHandler,
+} from "@/redux/feature/menuSlice";
 import { MENU_ITEMS } from "@/constants";
 
 const MenuBar = () => {
@@ -19,6 +22,10 @@ const MenuBar = () => {
 
   const handleMenuClick = (menuName: string) => {
     dispatch(menuClickHandler(menuName));
+  };
+
+  const handleAction = (actionName: string) => {
+    dispatch(actionClickHandler(actionName));
   };
 
   return (
@@ -40,26 +47,20 @@ const MenuBar = () => {
         <FaEraser className={styles.icon} />
       </div>
       <div
-        className={cx(styles.iconWrapper, {
-          [styles.active]: activeMenuItem === MENU_ITEMS.UNDO,
-        })}
-        onClick={() => handleMenuClick(MENU_ITEMS.UNDO)}
+        className={styles.iconWrapper}
+        onClick={() => handleAction(MENU_ITEMS.UNDO)}
       >
         <FaRotateLeft className={styles.icon} />
       </div>
       <div
-        className={cx(styles.iconWrapper, {
-          [styles.active]: activeMenuItem === MENU_ITEMS.REDO,
-        })}
-        onClick={() => handleMenuClick(MENU_ITEMS.REDO)}
+        className={styles.iconWrapper}
+        onClick={() => handleAction(MENU_ITEMS.REDO)}
       >
         <FaRotateRight className={styles.icon} />
       </div>
       <div
-        className={cx(styles.iconWrapper, {
-          [styles.active]: activeMenuItem === MENU_ITEMS.DOWNLOAD,
-        })}
-        onClick={() => handleMenuClick(MENU_ITEMS.DOWNLOAD)}
+        className={styles.iconWrapper}
+        onClick={() => handleAction(MENU_ITEMS.DOWNLOAD)}
       >
         <FaDownload className={styles.icon} />
       </div>

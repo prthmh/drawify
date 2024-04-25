@@ -1,14 +1,37 @@
 "use client";
 
-import { useAppSelector } from "@/redux/store";
+import { MENU_ITEMS } from "@/constants";
+import { actionClickHandler } from "@/redux/feature/menuSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useEffect, useRef } from "react";
 
 const Canvas = () => {
   const canvasRef = useRef(null);
   const shouldDraw = useRef(false);
-  const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem);
+  const { activeMenuItem, actionMenuItem } = useAppSelector(
+    (state) => state.menu
+  );
   const { color, size } = useAppSelector((state) => state.tool[activeMenuItem]);
-  console.log(color, size);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const context = canvas.getContext("2d");
+
+    if (actionMenuItem === MENU_ITEMS.DOWNLOAD) {
+      const URL = canvas.toDataURL();
+      let link = document.createElement("a");
+      link.download = "image.png";
+      link.href = URL;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    dispatch(actionClickHandler(null));
+  }, [actionMenuItem]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;

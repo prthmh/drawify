@@ -70,7 +70,7 @@ const ToolBar = () => {
           <input
             type="range"
             min={1}
-            max={15}
+            max={activeMenuItem === MENU_ITEMS.ERASER ? 30 : 15}
             step={1}
             value={size}
             className={styles.tool}
