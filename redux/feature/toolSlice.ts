@@ -17,11 +17,11 @@ type ToolPayloadType = {
 const initialState: ToolStateType = {
   [MENU_ITEMS.PENCIL]: {
     color: PRESELECTEDCOLORS.BLACK,
-    size: 3,
+    size: 2,
   },
   [MENU_ITEMS.ERASER]: {
     color: PRESELECTEDCOLORS.WHITE,
-    size: 3,
+    size: 2,
   },
   [MENU_ITEMS.DOWNLOAD]: {},
   [MENU_ITEMS.REDO]: {},
